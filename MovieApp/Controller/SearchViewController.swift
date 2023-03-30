@@ -6,32 +6,47 @@
 //
 
 import UIKit
+import Firebase
 
 class SearchViewController: UIViewController, UITextFieldDelegate {
 
-
+    
     @IBOutlet weak var searchTextField: UITextField!
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
+    var movieLabel: String = ""
     
     var movieManager = MovieManager()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        print("Search Page Loaded..")
-        //movieManager.delegate = self
-        
+        // Search Page Loaded..
         searchTextField.delegate = self
-        //collectionView.collectionViewLayout = UICollectionViewLayout()
-        
-        //collectionView.dataSource = self
-        //collectionView.collectionViewLayout = UICollectionViewLayout()
         
     }
     
+    @IBAction func detailButtonTapped(_ sender: Any) {
+        // Detail Button Tapped
+        let button = sender as? UIButton
+        print("BUTTON: \(button!)")
+        if (button?.titleLabel!.text) != nil{
+            movieLabel = (button?.titleLabel!.text)!
+        }
+        //print("Button Label = \(buttonLabel)")
+        Analytics.logEvent("to_detail", parameters: nil)
+        performSegue(withIdentifier: "toDetail", sender: self)
+    }
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDetail"{
+            if let vc = segue.destination as? DetailViewController{
+                vc.movieName = movieLabel
+            }
+        }
+    }
     
     @IBAction func searchButtonTapped(_ sender: UIButton) {
         searchTextField.endEditing(true)
@@ -58,7 +73,7 @@ extension SearchViewController: UICollectionViewDataSource{
 
 extension SearchViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 160, height: 250)
+        return CGSize(width: 500, height: 500)
     }
 }
 
@@ -74,7 +89,7 @@ extension SearchViewController: UICollectionViewDelegate{
 extension SearchViewController: UITextViewDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchTextField.endEditing(true)
-        print(searchTextField.text!)
+        //print(searchTextField.text!)
         return true
     }
     
@@ -105,7 +120,7 @@ extension SearchViewController: UITextViewDelegate{
 extension SearchViewController: MovieManagerDelegate{
     func didMovieSearched(movieManager: MovieManager, movie: MovieModel) {
         DispatchQueue.main.async {
-            print("In the Dispatch Queue")
+            // In the Dispatch Queue
         }
     }
     

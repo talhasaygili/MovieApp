@@ -34,7 +34,6 @@ class LogoViewController: UIViewController {
                 print("Something went wrong")
                 return
             }
-            print("We got it")
             RemoteConfig.remoteConfig().activate()
             
         }
@@ -45,8 +44,7 @@ class LogoViewController: UIViewController {
         setupRemoteConfigDefaults()
         fetchRemoteConfig()
         updateLogo()
-        print("Logo Printed")
-
+        //Logo printed
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3){
             self.performSegue(withIdentifier: "ToSearchScreen", sender: nil)

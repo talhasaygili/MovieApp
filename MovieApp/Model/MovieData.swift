@@ -12,4 +12,7 @@ struct MovieData: Codable{
     var Title: String
     var Year: String
     var Language: String
+    var Poster: String
+    var Director: String
+    var Genre: String
 }

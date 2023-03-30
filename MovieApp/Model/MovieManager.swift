@@ -41,7 +41,7 @@ struct MovieManager{
                 if let safeData = data{
                     if let movie = self.parseJSON(movieData: safeData){
                         self.delegate?.didMovieSearched(movieManager: self, movie: movie)
-                        //print("PARSED!")
+                        // Parsed
                     }
                 }
                 print("Task given to the session")
@@ -61,12 +61,18 @@ struct MovieManager{
             let title = decodedData.Title
             let year = decodedData.Year
             let language = decodedData.Language
+            let poster = decodedData.Poster
+            let director = decodedData.Director
+            let genre = decodedData.Genre
             
+
             print("Title: \(title)")
             print("Year: \(year)")
             print("Language: \(language)")
             
-            let movie = MovieModel(title: title, year: year, language: language)
+            
+            let movie = MovieModel(title: title, year: year, language: language, poster: poster, director: director, genre: genre)
+            print("Movie: \(movie)")
             return movie
         }
         catch{
