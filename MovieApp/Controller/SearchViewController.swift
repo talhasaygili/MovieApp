@@ -29,11 +29,10 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     @IBAction func detailButtonTapped(_ sender: Any) {
         // Detail Button Tapped
         let button = sender as? UIButton
-        print("BUTTON: \(button!)")
         if (button?.titleLabel!.text) != nil{
             movieLabel = (button?.titleLabel!.text)!
         }
-        //print("Button Label = \(buttonLabel)")
+        
         Analytics.logEvent("to_detail", parameters: nil)
         performSegue(withIdentifier: "toDetail", sender: self)
     }
@@ -66,6 +65,8 @@ extension SearchViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCollectionViewCell", for: indexPath) as! MovieCollectionViewCell
         cell.setup(with: dummyMovies[indexPath.row])
+        cell.movieImageView.layer.cornerRadius = cell.movieImageView.frame.height / 2
+        
         return cell
     }
 }

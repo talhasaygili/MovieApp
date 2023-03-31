@@ -24,10 +24,13 @@ class DetailViewController: UIViewController {
             movieLabel.text = detailedMovie.title
             let url = URL(string: detailedMovie.poster)
             movieImage.load(url: url!)
+            movieImage.layer.cornerRadius = movieImage.frame.height / 2
             directorName.text = detailedMovie.director
             movieYear.text = detailedMovie.year
             movieLang.text = detailedMovie.language
             movieGenre.text = detailedMovie.genre
+            
+            
         }
             
 
